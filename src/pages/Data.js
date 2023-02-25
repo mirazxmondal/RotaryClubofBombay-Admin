@@ -750,7 +750,7 @@ function Data() {
     auth
       .signOut()
       .then(() => {
-        navigate("sign-in");
+        navigate("/");
       })
       .catch((error) => alert(error.message));
   };

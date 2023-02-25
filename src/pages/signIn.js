@@ -33,7 +33,7 @@ export default function SignIn() {
       );
 
       if (userCredential.user) {
-        navigate("/");
+        navigate("/data");
         console.log(auth.currentUser.uid);
       }
     } catch (error) {
