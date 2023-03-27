@@ -6,16 +6,6 @@ import { collection, getDocs } from "firebase/firestore";
 function Home() {
   const navigate = useNavigate();
   const [allDocs, setAllDocs] = useState([]);
-  // const [singleDoc, setSingleDoc] = useState({});
-
-  // const handleSignOut = () => {
-  //   auth
-  //     .signOut()
-  //     .then(() => {
-  //       navigate("sign-in");
-  //     })
-  //     .catch((error) => alert(error.message));
-  // };
 
   async function fetchListings() {
     try {
@@ -34,21 +24,6 @@ function Home() {
       console.log("Could not fetch listing");
     }
   }
-
-  // function RedirectExample() {
-  //   useEffect(() => {
-  //     const timeout = setTimeout(() => {
-  //       // 👇️ redirects to an external URL
-  //       window.location.replace(
-  //         "https://docs.google.com/spreadsheets/d/1Q33Mkk89-cPTQs437bjcoNatBKWZN7sV126udR0_Z4Y/edit#gid=0"
-  //       );
-  //     }, 3000);
-
-  //     return () => clearTimeout(timeout);
-  //   }, []);
-
-  //   return <>Will redirect in 3 seconds...</>;
-  // }
 
   return (
     <div className="m-2">
