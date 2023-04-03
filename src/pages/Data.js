@@ -763,11 +763,16 @@ function Data() {
   };
   const exportToExcell = () => {
     const wb = XLSX.utils.book_new();
-    const ws = XLSX.utils.json_to_sheet(userdata, {
-      header: ["id", "History.amount", "History.date"],
+    const historyData = Object.values(userdata.History);
+    const historyHeader = ["date", "amount"];
+    const historyWs = XLSX.utils.json_to_sheet(historyData, {
+      header: historyHeader,
     });
-    XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
-    XLSX.writeFile(wb, "new_users.xlsx");
+    // const ws = XLSX.utils.json_to_sheet(userdata);
+    XLSX.utils.book_append_sheet(wb, historyWs, "History");
+    // XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+    // XLSX.writeFile(wb, "new_users.xlsx");
+    XLSX.writeFile(wb, "userdata.xlsx");
   };
 
   if (loading) {
