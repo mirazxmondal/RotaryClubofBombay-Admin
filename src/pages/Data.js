@@ -743,6 +743,7 @@ function Data() {
         console.log("Could not fetch listing");
       }
     }
+    console.log(userdata);
     fetchListings();
   }, []);
 
@@ -762,17 +763,29 @@ function Data() {
     XLSX.writeFile(wb, "old_users.xlsx");
   };
   const exportToExcell = () => {
-    const wb = XLSX.utils.book_new();
-    const historyData = Object.values(userdata.History);
-    const historyHeader = ["date", "amount"];
-    const historyWs = XLSX.utils.json_to_sheet(historyData, {
-      header: historyHeader,
+    const flattenedData = userdata.map((obj) => {
+      const history = obj.History;
+      delete obj.History;
+      return Object.entries(history).reduce((acc, [key, value]) => {
+        return {
+          ...acc,
+          [`${key}_date`]: value.date,
+          [`${key}_amount`]: value.amount,
+        };
+      }, obj);
     });
-    // const ws = XLSX.utils.json_to_sheet(userdata);
-    XLSX.utils.book_append_sheet(wb, historyWs, "History");
-    // XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
-    // XLSX.writeFile(wb, "new_users.xlsx");
-    XLSX.writeFile(wb, "userdata.xlsx");
+
+    const wb = XLSX.utils.book_new();
+
+    // Convert the flattened data to a worksheet
+    const ws = XLSX.utils.json_to_sheet(flattenedData);
+    console.log(flattenedData);
+
+    // Add the worksheet to the workbook
+    XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+
+    // Save the workbook as an Excel file
+    XLSX.writeFile(wb, "new_users.xlsx");
   };
 
   if (loading) {
