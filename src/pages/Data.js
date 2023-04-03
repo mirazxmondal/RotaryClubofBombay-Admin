@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Container } from "react-bootstrap";
 import { auth, db } from "../firebase";
 import { collection, getDocs } from "firebase/firestore";
-// import { CSVLink } from "react-csv";
 import Spinner from "../component/Spinner";
 import * as XLSX from "xlsx";
 import { json, useNavigate } from "react-router";
@@ -726,14 +725,6 @@ function Data() {
           data.id = doc.id;
           return data;
         });
-        // let listings = [];
-        // querySnap.forEach((doc) => {
-        //   return listings.push({
-        //     id: doc.id,
-        //     data: doc.data(),
-        //   });
-        // });
-        // setUserdata(listings);
         setLoading(false);
         setUserdata(docs);
 
@@ -763,17 +754,6 @@ function Data() {
     XLSX.writeFile(wb, "old_users.xlsx");
   };
   const exportToExcell = () => {
-    // const flattenedData = userdata.map((obj) => {
-    //   const history = obj.History;
-    //   delete obj.History;
-    //   return Object.entries(history).reduce((acc, [key, value]) => {
-    //     return {
-    //       ...acc,
-    //       [`${key}_date`]: value.date,
-    //       [`${key}_amount`]: value.amount,
-    //     };
-    //   }, obj);
-    // });
     const flattenedData = userdata.map((user) => {
       const amounts = Object.values(user.History).map((h) => h.amount);
       return {

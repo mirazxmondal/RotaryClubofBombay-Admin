@@ -83,7 +83,6 @@ export default function SignIn() {
                 />
               )}
             </div>
-            {/* <div className="flex justify-between whitespace-nowrap text-sm sm:text-lg"></div> */}
             <button
               type="submit"
               onClick={onSubmit}
