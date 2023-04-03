@@ -763,16 +763,27 @@ function Data() {
     XLSX.writeFile(wb, "old_users.xlsx");
   };
   const exportToExcell = () => {
-    const flattenedData = userdata.map((obj) => {
-      const history = obj.History;
-      delete obj.History;
-      return Object.entries(history).reduce((acc, [key, value]) => {
-        return {
-          ...acc,
-          [`${key}_date`]: value.date,
-          [`${key}_amount`]: value.amount,
-        };
-      }, obj);
+    // const flattenedData = userdata.map((obj) => {
+    //   const history = obj.History;
+    //   delete obj.History;
+    //   return Object.entries(history).reduce((acc, [key, value]) => {
+    //     return {
+    //       ...acc,
+    //       [`${key}_date`]: value.date,
+    //       [`${key}_amount`]: value.amount,
+    //     };
+    //   }, obj);
+    // });
+    const flattenedData = userdata.map((user) => {
+      const amounts = Object.values(user.History).map((h) => h.amount);
+      return {
+        RotaryID: user.Rotary_Id,
+        Name: user.Name,
+        Email: user.Email,
+        Password: user.Password,
+        Phone: user.Phone,
+        Amounts: amounts.join(", "),
+      };
     });
 
     const wb = XLSX.utils.book_new();
