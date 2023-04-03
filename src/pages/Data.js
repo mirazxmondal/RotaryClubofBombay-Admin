@@ -763,7 +763,9 @@ function Data() {
   };
   const exportToExcell = () => {
     const wb = XLSX.utils.book_new();
-    const ws = XLSX.utils.json_to_sheet(userdata);
+    const ws = XLSX.utils.json_to_sheet(userdata, {
+      header: ["id", "History.amount", "History.date"],
+    });
     XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
     XLSX.writeFile(wb, "new_users.xlsx");
   };
